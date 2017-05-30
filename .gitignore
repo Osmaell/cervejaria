@@ -1,6 +1,9 @@
 # Compiled class file
 *.class
 
+# Maven file
+*.mvnw
+
 # Log file
 *.log
 
@@ -17,6 +20,17 @@
 *.zip
 *.tar.gz
 *.rar
+*.cmd
+
+# Folders
+RemoteSystemsTempFiles/
+Servers/
+target/
+
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+/.project
+/mvnw
+/..gitignore.swp
+/.classpath
