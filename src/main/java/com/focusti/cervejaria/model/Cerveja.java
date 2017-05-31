@@ -12,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
@@ -23,6 +25,7 @@ import org.hibernate.validator.constraints.NotBlank;
 
 import com.focusti.cervejaria.model.constants.Origem;
 import com.focusti.cervejaria.model.constants.Sabor;
+import com.focusti.cervejaria.validation.SKU;
 
 @Entity
 @Table(name = "cerveja")
@@ -35,6 +38,7 @@ public class Cerveja implements Serializable {
 	private Long codigo;
 	
 	@NotBlank(message = "O sku é obrigatório")
+	@SKU
 	private String sku;
 	
 	@NotBlank(message = "O nome é obrigatório")
@@ -75,6 +79,12 @@ public class Cerveja implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "codigo_estilo")
 	private Estilo estilo;
+	
+	@PrePersist
+	@PreUpdate
+	public void prePersistUpdate() {
+		this.sku = this.sku.toUpperCase();
+	}
 	
 	public Long getCodigo() {
 		return codigo;

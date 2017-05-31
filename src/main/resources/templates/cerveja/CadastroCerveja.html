@@ -65,7 +65,7 @@
 								</select>
 								
 								<div class="bw-field-action__icon" >
-									<a href="#" >
+									<a href="" data-toggle="modal" data-target="#modalCadastroRapidoEstilo" >
 										<i class="glyphicon glyphicon-plus-sign bw-glyphicon-large" ></i>
 									</a>
 								</div>
@@ -148,11 +148,13 @@
 					<div class="form-group" >
 						<button class="btn  btn-primary" type="submit">Salvar</button>
 					</div>
-												
+					
 				</form>
-				
+					
 			</div>
 						
+			<div th:replace="estilo/CadastroRapidoEstilo :: modal-cadastro-rapido" ></div>
+			
 		</section>
 		
 	</body>
