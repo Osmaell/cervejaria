@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.focusti.cervejaria.model.Estilo;
 import com.focusti.cervejaria.repository.Estilos;
-import com.focusti.cervejaria.service.exception.NomeJaCadastradoException;
+import com.focusti.cervejaria.service.exception.NomeEstiloJaCadastradoException;
 
 @Service
 public class EstiloService {
@@ -15,15 +15,15 @@ public class EstiloService {
 	@Autowired
 	private Estilos estilos;
 	
-	public void salvar(Estilo estilo) {
+	public Estilo salvar(Estilo estilo) {
 		
 		Optional<Estilo> estiloOptional = estilos.findByNomeIgnoreCase(estilo.getNome());
 		
 		if ( estilo != null && estiloOptional.isPresent()) {
-			throw new NomeJaCadastradoException("Já existe um estilo com esse nome");
+			throw new NomeEstiloJaCadastradoException("Já existe um estilo com esse nome");
 		}
 		
-		estilos.save(estilo);
+		return estilos.saveAndFlush(estilo);
 	}
 	
 }
