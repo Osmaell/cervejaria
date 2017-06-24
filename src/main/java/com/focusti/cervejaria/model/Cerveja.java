@@ -80,6 +80,11 @@ public class Cerveja implements Serializable {
 	@JoinColumn(name = "codigo_estilo")
 	private Estilo estilo;
 	
+	private String foto;
+	
+	@Column(name= "content_type")
+	private String contentType;
+	
 	@PrePersist
 	@PreUpdate
 	public void prePersistUpdate() {
@@ -174,6 +179,21 @@ public class Cerveja implements Serializable {
 		this.estilo = estilo;
 	}
 
+	public String getFoto() {
+		return foto;
+	}
+	
+	public void setFoto(String foto) {
+		this.foto = foto;
+	}
+	
+	public String getContentType() {
+		return contentType;
+	}
+	
+	public void setContentType(String contentType) {
+		this.contentType = contentType;
+	}
 	
 	@Override
 	public int hashCode() {
@@ -182,7 +202,6 @@ public class Cerveja implements Serializable {
 		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
 		return result;
 	}
-
 	
 	@Override
 	public boolean equals(Object obj) {
