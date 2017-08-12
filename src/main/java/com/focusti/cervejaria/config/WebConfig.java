@@ -1,5 +1,5 @@
 package com.focusti.cervejaria.config;
-
+	
 import java.math.BigDecimal;
 
 import org.springframework.cache.annotation.EnableCaching;
@@ -12,13 +12,13 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import com.focusti.cervejaria.thymeleaf.BrewerDialect;
-
+	
 @Configuration
 @EnableSpringDataWebSupport
 @EnableCaching
 @EnableAsync
 public class WebConfig extends WebMvcConfigurerAdapter {
-
+	
 	@Bean
 	public BrewerDialect brewerDialect() {
 		return new BrewerDialect();
