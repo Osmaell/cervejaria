@@ -5,11 +5,14 @@ Brewer.MaskMoney = (function(){
 	function MaskMoney() {
 		this.decimal = $('.js-decimal');
 		this.plain = $('.js-plain');
+		this.sku = $('.js-sku');
 	}
 	
 	MaskMoney.prototype.enable = function () {
 		this.decimal.maskMoney({ decimal: ',', thousands: '.' });
 		this.plain.maskMoney({ precision: 0, thousands: '.' });
+		this.sku.mask('000000');
+		$('[data-toggle="tooltip"]').tooltip();
 	}
 	
 	return MaskMoney;

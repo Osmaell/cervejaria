@@ -11,12 +11,21 @@
 	content: "*";
 }
 
+.bw-icon {
+	padding: 6px;
+}
+
+.responsive {
+	margin: 15px 15px 0px 15px;
+}
+
 /*
 #########################
 ###### COMPONENTES ######
 */
 
 /* Field Action */
+
 .bw-field-action {
 	display: flex;
 }

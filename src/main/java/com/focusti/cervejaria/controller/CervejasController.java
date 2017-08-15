@@ -14,7 +14,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.focusti.cervejaria.model.Cerveja;
 import com.focusti.cervejaria.model.constants.Origem;
 import com.focusti.cervejaria.model.constants.Sabor;
+import com.focusti.cervejaria.repository.Cervejas;
 import com.focusti.cervejaria.repository.Estilos;
+import com.focusti.cervejaria.repository.filter.CervejaFilter;
 import com.focusti.cervejaria.service.CervejaService;
 	
 @Controller
@@ -28,6 +30,9 @@ public class CervejasController {
 	
 	@Autowired
 	private Estilos estilos;
+	
+	@Autowired
+	private Cervejas cervejas;
 	
 	@GetMapping("/nova")
 	public ModelAndView nova(Cerveja cerveja) {
@@ -49,6 +54,19 @@ public class CervejasController {
 		attributes.addFlashAttribute("mensagem", "Cerveja salva com sucesso");
 		
 		return new ModelAndView("redirect:/cervejas/nova");
+	}
+	
+	@GetMapping
+	public ModelAndView pesquisar(CervejaFilter cervejaFilter) {
+		
+		ModelAndView mv = new ModelAndView("cerveja/PesquisaCerveja");
+		
+		mv.addObject("estilos", estilos.findAll());
+		mv.addObject("sabores", Sabor.values());
+		mv.addObject("origens", Origem.values());
+		mv.addObject("cervejas", cervejas.findAll());
+		
+		return mv;
 	}
 	
 }
