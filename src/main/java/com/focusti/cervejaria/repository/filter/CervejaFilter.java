@@ -15,7 +15,7 @@ public class CervejaFilter {
 	private Origem origem;
 	private BigDecimal valorDe;
 	private BigDecimal valorAte;
-
+	
 	public String getSku() {
 		return sku;
 	}
