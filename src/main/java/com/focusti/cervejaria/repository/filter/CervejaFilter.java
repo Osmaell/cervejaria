@@ -1,13 +1,13 @@
 package com.focusti.cervejaria.repository.filter;
-
+	
 import java.math.BigDecimal;
 
 import com.focusti.cervejaria.model.Estilo;
 import com.focusti.cervejaria.model.constants.Origem;
 import com.focusti.cervejaria.model.constants.Sabor;
-
+	
 public class CervejaFilter {
-
+	
 	private String sku;
 	private String nome;
 	private Estilo estilo;
