@@ -140,7 +140,7 @@
 			</div>
 			
 			<div class="responsive" >
-								
+					
 				<table class="table table-bordered table-hover" >
 					
 					<thead>
@@ -183,34 +183,46 @@
 				
 			</div>
 			
-			<nav class="text-center" >
-				
-				<ul class="pagination" >
+			<div class="col-sm-12 text-center" >
+			
+				<nav>
 					
-					<li>
+					<ul class="pagination pagination-sm" >
 						
-						<a href="#" aria-label="previous" >
-        					<span aria-hidden="true">&laquo;</span>
-     					</a>
+						<li class="disabled" >
+							
+							<a href="#">
+	        					<span>&laquo;</span>
+	     					</a>
+							
+						</li>
 						
-					</li>
+						<li class="active" >
+							<a href="?page=0" >1</a>
+						</li>
+	     				
+	     				<li>
+	     					<a href="?page=1" >2</a>
+	     				</li>
+	     				
+	     				<li>
+	     					<a href="?page=2" >3</a>
+	     				</li>
+	     				
+	     				<li>
+							
+	     					<a href="#">
+	        					<span>&raquo;</span>
+							</a>
+	     					
+	     				</li>
+	     				 	
+					</ul>
 					
-					<li><a href="?page=0" >1</a></li>
-     				<li><a href="?page=1" >2</a></li>
-     				<li><a href="?page=2" >3</a></li>
-     				
-     				<li>
-						
-     					<a href="#" aria-label="next" >
-        					<span aria-hidden="true">&raquo;</span>
-						</a>
-     					
-     				</li>
-     				
-				</ul>
-				
-			</nav>
-											
+				</nav>
+			
+			</div>
+									
 		</section>
 		
 		<th:block layout:fragment="javascript-extra" >
