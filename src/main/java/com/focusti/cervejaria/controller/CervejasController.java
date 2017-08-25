@@ -1,5 +1,6 @@
 package com.focusti.cervejaria.controller;
 	
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.focusti.cervejaria.controller.page.PageWrapper;
 import com.focusti.cervejaria.model.Cerveja;
 import com.focusti.cervejaria.model.constants.Origem;
 import com.focusti.cervejaria.model.constants.Sabor;
@@ -60,7 +62,8 @@ public class CervejasController {
 	}
 	
 	@GetMapping
-	public ModelAndView pesquisar(CervejaFilter cervejaFilter, @PageableDefault(size = 2) Pageable pageable) {
+	public ModelAndView pesquisar(CervejaFilter cervejaFilter, @PageableDefault(size = 2) Pageable pageable, 
+			HttpServletRequest httpServletRequest) {
 		
 		ModelAndView mv = new ModelAndView("cerveja/PesquisaCerveja");
 		
@@ -69,8 +72,9 @@ public class CervejasController {
 		mv.addObject("origens", Origem.values());
 		
 		Page<Cerveja> pagina = cervejas.filtar(cervejaFilter, pageable);
+		PageWrapper<Cerveja> pageWrapper = new PageWrapper<>(pagina, httpServletRequest);
 		
-		mv.addObject("pagina", pagina);
+		mv.addObject("pagina", pageWrapper);
 		
 		return mv;
 	}
