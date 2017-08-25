@@ -2,6 +2,7 @@ package com.focusti.cervejaria.repository.helper.cerveja;
 	
 import java.util.List;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import com.focusti.cervejaria.model.Cerveja;
@@ -11,6 +12,6 @@ public interface CervejasQueries {
 	
 	public List<Cerveja> listar();
 	
-	public List<Cerveja> filtar(CervejaFilter filter, Pageable pageable);
+	public Page<Cerveja> filtar(CervejaFilter filter, Pageable pageable);
 	
 }

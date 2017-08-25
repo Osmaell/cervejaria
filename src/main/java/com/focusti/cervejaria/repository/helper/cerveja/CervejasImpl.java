@@ -8,7 +8,10 @@ import javax.persistence.PersistenceContext;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -32,7 +35,7 @@ public class CervejasImpl implements CervejasQueries {
 	@SuppressWarnings("unchecked")
 	@Transactional(readOnly = true)
 	@Override
-	public List<Cerveja> filtar(CervejaFilter filter, Pageable pageable) {
+	public Page<Cerveja> filtar(CervejaFilter filter, Pageable pageable) {
 		
 		Criteria criteria = entityManager.unwrap(Session.class).createCriteria(Cerveja.class);
 		
@@ -42,6 +45,22 @@ public class CervejasImpl implements CervejasQueries {
 		
 		criteria.setFirstResult(primeiroRegistro);
 		criteria.setMaxResults(totalRegistrosPorPagina);
+		
+		adicionarFiltro(filter, criteria);
+		
+		// conteúdo, pageable e total de páginas que vai ser calculado
+		// de acordo com o filtro
+		return new PageImpl<>(criteria.list(), pageable, total(filter));
+	}
+
+	private Long total(CervejaFilter filter) {
+		Criteria criteria = entityManager.unwrap(Session.class).createCriteria(Cerveja.class);
+		adicionarFiltro(filter, criteria);
+		criteria.setProjection(Projections.rowCount());
+		return (Long) criteria.uniqueResult();
+	}
+	
+	private void adicionarFiltro(CervejaFilter filter, Criteria criteria) {
 		
 		if (filter != null) {
 			
@@ -75,9 +94,8 @@ public class CervejasImpl implements CervejasQueries {
 			
 		}
 		
-		return criteria.list();
 	}
-
+	
 	private boolean isEstiloPresent(CervejaFilter filter) {
 		return filter.getEstilo() != null && filter.getEstilo().getCodigo() != null;
 	}
