@@ -202,10 +202,10 @@
 							
 						</li>
 						
-						<th:block th:each="p : ${#numbers.sequence(1, pagina.totalPages)}" >
+						<th:block th:each="p : ${#numbers.sequence(1, pagina.totalPages)}" th:with="numeroPagina=${p - 1}, paginaAtual=${pagina.number}" >
 							
-							<li>
-								<a th:href="|?page=${p - 1}|" th:text="${p}" ></a>
+							<li th:class="${paginaAtual == numeroPagina} ? active" >
+								<a th:href="|?page=${numeroPagina}|" th:text="${p}" ></a>
 							</li>
 							
 						</th:block>
