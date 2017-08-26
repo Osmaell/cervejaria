@@ -3,6 +3,7 @@
 <html
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
+	xmlns:brewer="http://brewer.algaworks.com"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorator="layout/LayoutPadrao" >
 	
@@ -149,23 +150,14 @@
 							
 							<th class="table-cervejas-col-sku" >
 								
-								<a th:href="${pagina.urlOrdenada('sku')}" th:remove="${pagina.vazia} ? tag" >
-									<span>SKU</span>
-									<span class="dropup" th:remove="${pagina.descendente('sku')} ? tag" th:if="${pagina.ordenada('sku')}" >
-										<span class="caret" ></span>
-									</span>
-								</a>
+								<brewer:order page="${pagina}" field="sku" text="SKU" />
+								<!-- <th:block th:replace="layout/fragments/Ordenacao :: order (${pagina}, 'sku', 'SKU')" ></th:block> -->
 								
 							</th>
 							
-							<th class="table-cervejas-col-nome">
+							<th class="table-cervejas-col-nome" >
 								
-								<a th:href="${pagina.urlOrdenada('nome')}" th:remove="${pagina.vazia} ? tag" >
-									<span>Nome</span>
-									<span class="dropup" th:remove="${pagina.descendente('nome')} ? tag" th:if="${pagina.ordenada('nome')}" >
-										<span class="caret" ></span>
-									</span>
-								</a>
+								<brewer:order page="${pagina}" field="nome" text="Nome" />
 								
 							</th>
 							
