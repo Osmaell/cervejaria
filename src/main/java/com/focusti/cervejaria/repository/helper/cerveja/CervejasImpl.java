@@ -48,8 +48,9 @@ public class CervejasImpl implements CervejasQueries {
 		
 		adicionarFiltro(filter, criteria);
 		
-		// conteúdo, pageable e total de páginas que vai ser calculado
-		// de acordo com o filtro
+		// parâmetros:
+		// lista de cervejas, pageable e total de páginas
+		// que vai ser calculado de acordo com o filtro
 		return new PageImpl<>(criteria.list(), pageable, total(filter));
 	}
 	

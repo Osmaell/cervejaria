@@ -11,7 +11,7 @@ Brewer.MaskMoney = (function(){
 	MaskMoney.prototype.enable = function () {
 		this.decimal.maskMoney({ decimal: ',', thousands: '.' });
 		this.plain.maskMoney({ precision: 0, thousands: '.' });
-		this.sku.mask('000000');
+		this.sku.mask('AA0000');
 		$('[data-toggle="tooltip"]').tooltip();
 	}
 	

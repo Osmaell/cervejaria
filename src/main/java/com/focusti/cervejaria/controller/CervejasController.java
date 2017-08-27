@@ -44,7 +44,7 @@ public class CervejasController {
 		ModelAndView mv = new ModelAndView(CADASTRO_CERVEJA_VIEW);
 		mv.addObject("sabores", Sabor.values());
 		mv.addObject("origens", Origem.values());
-		mv.addObject("estilos", estilos.todos());
+		mv.addObject("estilos", estilos.listar());
 		return mv;
 	}
 	
@@ -67,7 +67,7 @@ public class CervejasController {
 		
 		ModelAndView mv = new ModelAndView("cerveja/PesquisaCerveja");
 		
-		mv.addObject("estilos", estilos.todos());
+		mv.addObject("estilos", estilos.listar());
 		mv.addObject("sabores", Sabor.values());
 		mv.addObject("origens", Origem.values());
 		
