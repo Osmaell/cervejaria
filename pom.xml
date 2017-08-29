@@ -25,7 +25,7 @@
 		
 		<thymeleaf.version>3.0.6.RELEASE</thymeleaf.version>
 		<thymeleaf-layout-dialect.version>2.1.1</thymeleaf-layout-dialect.version>
-		<!-- <thymeleaf-extras-data-attribute.version>2.0.1</thymeleaf-extras-data-attribute.version> -->
+		<thymeleaf-extras-data-attribute.version>2.0.1</thymeleaf-extras-data-attribute.version>
 		
 	</properties>
 
@@ -39,6 +39,12 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+		
+		<dependency>
+		    <groupId>com.github.mxab.thymeleaf.extras</groupId>
+		    <artifactId>thymeleaf-extras-data-attribute</artifactId>
+		    <scope>compile</scope>
 		</dependency>
 		
 		<dependency>
