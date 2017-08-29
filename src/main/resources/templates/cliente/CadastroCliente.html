@@ -4,7 +4,7 @@
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorator="layout/LayoutPadrao"
+	layout:decorate="layout/LayoutPadrao"
 	xmlns:brewer="http://brewer.algaworks.com" >
 	
 	<head>
@@ -65,14 +65,20 @@
 							
 							<div>
 								
-								<div class="radio  radio-inline">
-									<input type="radio" name="tipoPessoa" />
-									<label>Física</label>
+								<div class="radio  radio-inline" >
+								
+									<input type="radio" class="js-radio-tipo-pessoa" name="tipoPessoa" id="id_FISICA" 
+										data-documento="CPF" data-mascara="000.000.000-00" />
+									
+									<label class="control-label" for="id_FISICA" >Física</label>
 								</div>
 								
-								<div class="radio  radio-inline">
-									<input type="radio" name="tipoPessoa" />
-									<label>Juridica</label>
+								<div class="radio  radio-inline" >
+								
+									<input type="radio" class="js-radio-tipo-pessoa" name="tipoPessoa" id="id_JURIDICA" 
+										data-documento="CNPJ" data-mascara="00.000.000/0000-00" />
+									
+									<label class="control-label" for="id_JURIDICA" >Juridica</label>
 								</div>
 								
 							</div>
@@ -81,7 +87,7 @@
 												
 						<div class="form-group  col-sm-8" >
 							<label for="cpfOuCnpj">CPF/CNPJ</label>
-							<input type="text" class="form-control" id="cpfOuCnpj" />
+							<input type="text" class="form-control" id="cpfOuCnpj" disabled="disabled" />
 						</div>
 						
 					</div>
@@ -151,8 +157,12 @@
 				</form>
 				
 			</div>
-						
+			
 		</section>
+		
+		<th:block layout:fragment="javascript-extra" >
+			<script th:src="@{/js/cliente.mascara-cpf-cnpj.js}" ></script>
+		</th:block>
 		
 	</body>
 	
