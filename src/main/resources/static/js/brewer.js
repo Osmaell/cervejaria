@@ -6,12 +6,14 @@ Brewer.MaskMoney = (function(){
 		this.decimal = $('.js-decimal');
 		this.plain = $('.js-plain');
 		this.sku = $('.js-sku');
+		this.cep = $('.js-cep');
 	}
 	
 	MaskMoney.prototype.enable = function () {
 		this.decimal.maskMoney({ decimal: ',', thousands: '.' });
 		this.plain.maskMoney({ precision: 0, thousands: '.' });
 		this.sku.mask('AA0000');
+		this.cep.mask('00000-000');
 		$('[data-toggle="tooltip"]').tooltip();
 	}
 	
