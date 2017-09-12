@@ -15,6 +15,7 @@ import com.focusti.cervejaria.model.Cliente;
 import com.focusti.cervejaria.model.constants.TipoPessoa;
 import com.focusti.cervejaria.repository.Estados;
 import com.focusti.cervejaria.service.ClienteService;
+import com.focusti.cervejaria.service.exception.CpfCnpjJaCadastrado;
 
 @Controller
 @RequestMapping("/clientes")
@@ -43,8 +44,15 @@ public class ClientesController {
 			return novo(cliente);
 		}
 		
-		clienteService.salvar(cliente);
-		attributes.addFlashAttribute("mensagem", "Cliente salvo com sucesso!");
+		try { 
+		
+			clienteService.salvar(cliente);
+			attributes.addFlashAttribute("mensagem", "Cliente salvo com sucesso!");
+			
+		} catch (CpfCnpjJaCadastrado e) {
+			result.rejectValue("cpfOuCnpj", e.getMessage(), e.getMessage());
+			return novo(cliente);
+		}
 		
 		return new ModelAndView("redirect:/clientes/novo");
 	}
