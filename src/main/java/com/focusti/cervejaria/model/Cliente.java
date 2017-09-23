@@ -10,6 +10,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PostLoad;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -30,9 +31,9 @@ import com.focusti.cervejaria.model.validation.group.CpfGroup;
 @Table(name = "cliente")
 @GroupSequenceProvider(ClienteGroupSequenceProvider.class)
 public class Cliente implements Serializable {
-
+	
 	private static final long serialVersionUID = 1L;
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
@@ -52,7 +53,7 @@ public class Cliente implements Serializable {
 	private String cpfOuCnpj;
 	
 	private String telefone;
-
+	
 	@Email(message = "E-mail inválido")
 	private String email;
 	
@@ -63,6 +64,11 @@ public class Cliente implements Serializable {
 	@PreUpdate
 	private void prePersistPreUpdate() {
 		this.cpfOuCnpj = TipoPessoa.removerFormatacao(this.cpfOuCnpj);
+	}
+	
+	@PostLoad
+	private void postLoad() {
+		this.cpfOuCnpj = this.tipoPessoa.formatar(this.cpfOuCnpj);
 	}
 	
 	public Long getCodigo() {

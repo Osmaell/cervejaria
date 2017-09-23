@@ -51,6 +51,7 @@
 					
 					<brewer:message />
 					
+					<!-- Nome -->
 					<div class="row" >
 						
 						<div class="form-group col-sm-12 bw-required" brewer:classforerror="nome" >
@@ -60,6 +61,7 @@
 						
 					</div>
 					
+					<!-- Tipo pessoa | CpfCnpj -->
 					<div class="row" >
 						
 						<div class="form-group col-sm-4 bw-required" brewer:classforerror="tipoPessoa" >
@@ -76,7 +78,7 @@
 											data:documento="${tipo.documento}" data:mascara="${tipo.mascara}" th:value="${tipo}"  />
 											
 										<label class="control-label" th:for="|id_${tipo}|" th:text="${tipo.descricao}" >Física</label>
-											
+										
 									</div>
 											
 								</th:block>
@@ -92,6 +94,7 @@
 						
 					</div>
 					
+					<!-- Telefone | E-mail -->
 					<div class="row" >
 						
 						<div class="form-group  col-sm-4" >
@@ -106,6 +109,7 @@
 						
 					</div>
 					
+					<!-- Logradouro | Número | Complemento -->					
 					<div class="row" >
 						
 						<div class="form-group  col-sm-4" >
@@ -125,6 +129,7 @@
 						
 					</div>
 					
+					<!-- Cep | Estado | Cidade -->
 					<div class="row" >
 						
 						<div class="form-group  col-sm-4" >

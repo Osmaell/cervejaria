@@ -1,8 +1,12 @@
 package com.focusti.cervejaria.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,9 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.focusti.cervejaria.controller.page.PageWrapper;
 import com.focusti.cervejaria.model.Cliente;
 import com.focusti.cervejaria.model.constants.TipoPessoa;
+import com.focusti.cervejaria.repository.Clientes;
 import com.focusti.cervejaria.repository.Estados;
+import com.focusti.cervejaria.repository.filter.ClienteFilter;
 import com.focusti.cervejaria.service.ClienteService;
 import com.focusti.cervejaria.service.exception.CpfCnpjJaCadastrado;
 
@@ -26,6 +33,9 @@ public class ClientesController {
 	
 	@Autowired
 	private ClienteService clienteService;
+	
+	@Autowired
+	private Clientes clientes;
 	
 	@GetMapping("/novo")
 	public ModelAndView novo(Cliente cliente) {
@@ -44,7 +54,7 @@ public class ClientesController {
 			return novo(cliente);
 		}
 		
-		try { 
+		try {
 		
 			clienteService.salvar(cliente);
 			attributes.addFlashAttribute("mensagem", "Cliente salvo com sucesso!");
@@ -55,6 +65,19 @@ public class ClientesController {
 		}
 		
 		return new ModelAndView("redirect:/clientes/novo");
+	}
+	
+	@GetMapping
+	public ModelAndView pesquisar(ClienteFilter clienteFilter, BindingResult result , @PageableDefault(size=10) Pageable pageable, HttpServletRequest httpServletRequest) {
+		
+		ModelAndView mv = new ModelAndView("cliente/PesquisaCliente");
+		
+		Page<Cliente> page = clientes.filtrar(pageable, clienteFilter);
+		PageWrapper<Cliente> pageWrapper = new PageWrapper<>(page, httpServletRequest);
+		
+		mv.addObject("pagina", pageWrapper);
+		
+		return mv;
 	}
 	
 }

@@ -1,14 +1,14 @@
 package com.focusti.cervejaria.model.validation;
-
+	
 import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.validator.spi.group.DefaultGroupSequenceProvider;
 
 import com.focusti.cervejaria.model.Cliente;
-
+	
 public class ClienteGroupSequenceProvider implements DefaultGroupSequenceProvider<Cliente> {
-
+	
 	@Override
 	public List<Class<?>> getValidationGroups(Cliente cliente) {
 		
@@ -21,7 +21,7 @@ public class ClienteGroupSequenceProvider implements DefaultGroupSequenceProvide
 		
 		return grupos;
 	}
-
+	
 	private boolean isPessoaSelecionada(Cliente cliente) {
 		return cliente != null && cliente.getTipoPessoa() != null;
 	}

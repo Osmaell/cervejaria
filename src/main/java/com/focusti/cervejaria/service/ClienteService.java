@@ -1,5 +1,6 @@
 package com.focusti.cervejaria.service;
 	
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,10 @@ public class ClienteService {
 		}
 		
 		clientes.save(cliente);
+	}
+	
+	public List<Cliente> buscar() {
+		return clientes.listar();
 	}
 	
 }

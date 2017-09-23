@@ -27,7 +27,7 @@ public class OrderElementTagProcessor extends AbstractElementTagProcessor {
 		IAttribute page = tag.getAttribute("page");
 		IAttribute field = tag.getAttribute("field");
 		IAttribute text = tag.getAttribute("text");
-		String conteudoAtributo = String.format("layout/fragments/Ordenacao :: order (%s, %s, %s)", page.getValue(), field.getValue(), text.getValue());
+		String conteudoAtributo = String.format("layout/fragments/Ordenacao :: order (%s, %s, '%s')", page.getValue(), field.getValue(), text.getValue());
 		
 		model.add(modelFactory.createStandaloneElementTag(
 				"th:block", // tag

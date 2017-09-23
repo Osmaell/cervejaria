@@ -92,7 +92,7 @@
 }
 
 .table-cervejas-col-nome {
-	
+		
 }
 
 .table-cervejas-col-estilo {
@@ -112,7 +112,10 @@
 	width: 80px;
 }
 
-
-
+/* Colunas - Pesquisa de Clientes */
+.table-clientes-col-cidade-estado {
+	width: 140px;
+	text-align: right;
+}
 
 
