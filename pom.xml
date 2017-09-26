@@ -27,6 +27,9 @@
 		<thymeleaf-layout-dialect.version>2.1.1</thymeleaf-layout-dialect.version>
 		<thymeleaf-extras-data-attribute.version>2.0.1</thymeleaf-extras-data-attribute.version>
 		
+		<!-- Cache - Guava -->
+		<guava.version>19.0</guava.version>
+		
 	</properties>
 
 	<dependencies>
@@ -74,6 +77,21 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+		
+		<!-- Cache - Guava -->
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>${guava.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		
+		<!-- Spring Context Support -->
+		<dependency>
+			 <groupId>org.springframework</groupId>
+    		<artifactId>spring-context-support</artifactId>
+    		<scope>compile</scope>
 		</dependency>
 		
 	</dependencies>

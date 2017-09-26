@@ -5,7 +5,7 @@
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:brewer="http://brewer.algaworks.com"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="layout/LayoutPadrao" >
+	layout:decorate="~{layout/LayoutPadrao}" >
 	
 	<head>
 		<title>Pesqusia de cidade</title>
@@ -125,7 +125,7 @@
 			</div>
 			
 			<brewer:pagination page="${pagina}" />
-
+			
 		</section>
 				
 	</body>
