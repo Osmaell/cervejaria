@@ -7,8 +7,10 @@ import java.util.concurrent.TimeUnit;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.guava.GuavaCacheManager;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.data.web.config.EnableSpringDataWebSupport;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.format.datetime.standard.DateTimeFormatterRegistrar;
@@ -56,6 +58,16 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		cacheManager.setCacheBuilder(cacheBuilder);
 		
 		return cacheManager;
+	}
+	
+	@Bean
+	public MessageSource messageSource() {
+		
+		ReloadableResourceBundleMessageSource bundle = new ReloadableResourceBundleMessageSource();
+		bundle.setBasename("classpath:/messages");
+		bundle.setDefaultEncoding("UTF-8"); // http://www.uft8-chartable.de/
+		
+		return bundle;
 	}
 	
 }
