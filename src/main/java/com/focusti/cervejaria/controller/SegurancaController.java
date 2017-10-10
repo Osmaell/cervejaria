@@ -10,7 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class SegurancaController {
 
 	@GetMapping("/login")
-	public ModelAndView login( @AuthenticationPrincipal User user) {
+	public ModelAndView login( @AuthenticationPrincipal User user ) {
 		
 		ModelAndView mv = new ModelAndView("login");
 		

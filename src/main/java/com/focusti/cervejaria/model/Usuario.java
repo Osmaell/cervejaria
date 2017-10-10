@@ -121,6 +121,10 @@ public class Usuario implements Serializable {
 		this.confirmacaoSenha = confirmacaoSenha;
 	}
 	
+	public boolean isNovo() {
+		return codigo == null;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -145,5 +149,5 @@ public class Usuario implements Serializable {
 			return false;
 		return true;
 	}
-
+	
 }
