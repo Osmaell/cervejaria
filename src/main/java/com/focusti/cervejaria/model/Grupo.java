@@ -28,7 +28,7 @@ public class Grupo implements Serializable {
 	@NotNull(message = "Selecione pelo menos uma permissão")
 	@ManyToMany
 	@JoinTable(name = "grupo_permissao", joinColumns = @JoinColumn(name = "codigo_grupo"), inverseJoinColumns = @JoinColumn(name = "codigo_permissao"))
-	private List<Permissao> permisoes;
+	private List<Permissao> permissoes;
 	
 	public Long getCodigo() {
 		return codigo;
@@ -47,11 +47,11 @@ public class Grupo implements Serializable {
 	}
 	
 	public List<Permissao> getPermisoes() {
-		return permisoes;
+		return permissoes;
 	}
 	
 	public void setPermisoes(List<Permissao> permisoes) {
-		this.permisoes = permisoes;
+		this.permissoes = permisoes;
 	}
 	
 	@Override

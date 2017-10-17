@@ -37,7 +37,7 @@
 			
 			<div class="container-fluid" >
 				
-				<form method="POST" action="/estilos" th:object="${estilo}" class="form-vertical  js-form-loading" >
+				<form method="POST" th:action="@{/estilos}" th:object="${estilo}" class="form-vertical  js-form-loading" >
 					
 					<div th:replace="layout/MensagensErro :: mensagens-erro" ></div>
 					<div th:replace="layout/MensagemSucesso :: mensagem-sucesso" ></div>

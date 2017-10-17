@@ -8,17 +8,21 @@ import org.springframework.web.servlet.ModelAndView;
 	
 @Controller
 public class SegurancaController {
-
+	
 	@GetMapping("/login")
 	public ModelAndView login( @AuthenticationPrincipal User user ) {
 		
-		ModelAndView mv = new ModelAndView("login");
-		
 		if(user != null) {
-			return new ModelAndView("redirect:/cervejas");
+			return new ModelAndView("redirect:/cervejas/nova");
 		}
 		
-		return mv;
+		return new ModelAndView("login");
+		
+	}
+	
+	@GetMapping("/403")
+	public ModelAndView acessoNegado() {
+		return new ModelAndView("403");
 	}
 	
 }
