@@ -41,6 +41,7 @@ public class CervejasController {
 	
 	@GetMapping("/nova")
 	public ModelAndView nova(Cerveja cerveja) {
+		
 		ModelAndView mv = new ModelAndView(CADASTRO_CERVEJA_VIEW);
 		mv.addObject("sabores", Sabor.values());
 		mv.addObject("origens", Origem.values());
