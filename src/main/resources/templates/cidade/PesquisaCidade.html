@@ -5,7 +5,8 @@
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:brewer="http://brewer.algaworks.com"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layout/LayoutPadrao}" >
+	layout:decorate="~{layout/LayoutPadrao}"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security" >
 	
 	<head>
 		<title>Pesqusia de cidade</title>
@@ -25,7 +26,7 @@
 							<h1>Pesquisa de cidades</h1>
 						</div>	
 						
-						<div class="col-sm-2" >
+						<div class="col-sm-2" sec:authorize-url="/cidades/nova" >
 							
 							<div class="aw-page-header-controls" >
 								
@@ -86,11 +87,11 @@
 								<brewer:order page="${pagina}" field="nome" text="Nome" />
 							</th>
 							
-							<th class="text-right" >
+							<th class="text-center" >
 								<brewer:order page="${pagina}" field="estado" text="Estado" />
 							</th>
 							
-							<th></th>
+							<th class="text-center" sec:authorize="hasRole('ROLE_CADASTRAR_CIDADE')" >Acões</th>
 						</tr>
 						
 					</thead>
@@ -99,8 +100,8 @@
 						
 						<tr th:each="cidade : ${pagina.conteudo}" >
 							<td th:text="${cidade.nome}" ></td>
-							<td class="text-right" th:text="${cidade.estado.nome}" ></td>
-							<td class="text-center" >
+							<td class="text-center" th:text="${cidade.estado.nome}" ></td>
+							<td class="text-center" sec:authorize="hasRole('ROLE_CADASTRAR_CIDADE')" >
 								
 								<a href="#" class="btn btn-link btn-xs" data-toggle="tooltip" data-placement="top" title="Editar" >
 									<span class="glyphicon glyphicon-pencil" aria-hidden="true" ></span>
