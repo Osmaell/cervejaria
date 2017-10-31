@@ -13,6 +13,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.focusti.cervejaria.model.Usuario;
 import com.focusti.cervejaria.repository.Grupos;
+import com.focusti.cervejaria.repository.Usuarios;
+import com.focusti.cervejaria.repository.filter.UsuarioFilter;
 import com.focusti.cervejaria.service.UsuarioService;
 import com.focusti.cervejaria.service.exception.UsuarioJaCadastradoException;
 
@@ -25,6 +27,9 @@ public class UsuariosController {
 	
 	@Autowired
 	private Grupos grupos;
+	
+	@Autowired
+	private Usuarios usuarios;
 	
 	@GetMapping("/novo")
 	public ModelAndView novo(Usuario usuario) {
@@ -49,6 +54,14 @@ public class UsuariosController {
 		}
 		
 		return new ModelAndView("redirect:/usuarios/novo");
+	}
+
+	@GetMapping
+	public ModelAndView pesquisar(UsuarioFilter usuarioFilter) {
+		ModelAndView mv = new ModelAndView("usuario/PesquisaUsuario");
+		mv.addObject("usuarios", usuarios.filtrar(usuarioFilter));
+		mv.addObject("grupos", grupos.findAll());
+		return mv;
 	}
 	
 }
