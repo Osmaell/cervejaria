@@ -4,6 +4,7 @@
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:brewer="http://brewer.algaworks.com"
+	xmlns:data="http://www.thymeleaf.org/extras/data"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout/LayoutPadrao}" >
 	
@@ -89,6 +90,18 @@
 					
 				</form>
 				
+				<div class="aw-datatable-toolbar" >
+					
+					<button class="btn btn-default btn-xs js-status-btn disabled" data:status="ATIVAR" data:url="@{/usuarios/status}" >
+						<span>Ativar</span>						
+					</button>
+					
+					<button class="btn btn-default btn-xs js-status-btn disabled" data:status="DESATIVAR" data:url="@{/usuarios/status}" >
+						<span>Desativar</span>
+					</button>
+					
+				</div>
+				
 			</div>
 			
 			<div class="table-responsive bw-tabela-simples" >
@@ -98,11 +111,22 @@
 					<thead>
 						
 						<tr>
+							
+							<th class="table-usuarios-col-status" >
+								
+								<div class="checkbox aw-checkbox-no-margin" >
+							 		<input type="checkbox" class="js-selecao-todos" />
+									<label ></label>
+								</div>
+								
+							</th>
+							
 							<th>Nome</th>
 							<th>E-mail</th>
 							<th>Grupo</th>
 							<th class="text-center" >Status</th>
 							<th class="text-center" >Acões</th>
+							
 						</tr>
 						
 					</thead>
@@ -110,12 +134,24 @@
 					<tbody>
 						
 						<tr th:each="usuario : ${usuarios}" >
+							
+							<td>
+								
+								<div class="checkbox aw-checkbox-no-margin" th:if="${#authentication.principal.usuario.codigo != usuario.codigo}" >
+									<input type="checkbox" class="js-selecao" data:codigo="${usuario.codigo}" />
+									<label ></label>
+								</div>
+								
+							</td>
+							
 							<td th:text="${usuario.nome}" ></td>
 							<td class="text-center" th:text="${usuario.email}" ></td>
 							<td>
 								<span th:each="grupo : ${usuario.grupos}" th:text="|${grupo.nome}${grupoStat.last ? '' : ', '}|" ></span>
 							</td>
-							<td class="text-center" th:text="${usuario.ativo} ? Ativo : Inativo " ></td>
+							<td class="text-center" >
+								<span class="label" th:text="${usuario.ativo} ? Ativo : Inativo" th:classappend="${usuario.ativo} ? label-success : label-danger" ></span>
+							</td>
 							<td class="text-center" >
 								
 								<a href="#" class="btn btn-link btn-xs" data-toggle="tooltip" data-placement="top" title="Editar" >
@@ -141,6 +177,10 @@
 			</div>
 									
 		</section>
+		
+		<th:block layout:fragment="javascript-extra" >
+			<script th:src="@{/js/multiselecao.js}" ></script>
+		</th:block>
 		
 	</body>
 	

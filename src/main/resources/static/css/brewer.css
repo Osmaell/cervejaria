@@ -15,6 +15,12 @@
 	margin: 15px 15px 0px 15px;
 }
 
+/* Colunas - Pesquisa de usuários */
+.table-usuarios-col-status {
+	width: 30px;
+	text-align: center;
+}
+
 /*
 #########################
 ###### COMPONENTES ######

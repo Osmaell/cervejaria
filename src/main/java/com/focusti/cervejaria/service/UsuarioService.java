@@ -40,4 +40,8 @@ public class UsuarioService {
 		usuarios.save(usuario);
 	}
 	
+	public void alterarStatus(Long[] codigos, StatusUsuario status) {
+		status.executar(codigos, usuarios);
+	}
+	
 }

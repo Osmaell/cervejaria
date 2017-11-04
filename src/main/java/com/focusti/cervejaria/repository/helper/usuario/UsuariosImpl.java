@@ -48,7 +48,7 @@ public class UsuariosImpl implements UsuariosQueries {
 		return permissoes;
 	}
 
-
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Usuario> filtrar(UsuarioFilter filtro) {
@@ -60,7 +60,7 @@ public class UsuariosImpl implements UsuariosQueries {
 		
 		return criteria.list();
 	}
-
+	
 	private void adicionarFiltro(UsuarioFilter filtro, Criteria criteria) {
 		
 		if (filtro != null) {
