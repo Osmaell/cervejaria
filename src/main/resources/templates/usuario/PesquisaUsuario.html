@@ -133,7 +133,7 @@
 					
 					<tbody>
 						
-						<tr th:each="usuario : ${usuarios}" >
+						<tr th:each="usuario : ${pagina.conteudo}" >
 							
 							<td>
 								
@@ -166,8 +166,8 @@
 							
 						</tr>
 						
-						<tr th:if="${usuarios.empty}" >
-							<td colspan="3" >Nenhum usuário encontrado</td>
+						<tr th:if="${pagina.vazia}" >
+							<td colspan="6" >Nenhum usuário encontrado</td>
 						</tr>
 						
 					</tbody>
@@ -175,6 +175,8 @@
 				</table>
 				
 			</div>
+			
+			<brewer:pagination page="${pagina}" />
 									
 		</section>
 		
