@@ -83,7 +83,7 @@
 						</div>
 						
 					</div>
-					
+						
 					<div class="row" >
 						
 						<div class="form-group  col-sm-4  bw-required">
@@ -95,8 +95,11 @@
 						    	<input id="nomeCliente" type="text" readonly="readonly" class="form-control" placeholder="Clique na lupa para pesquisar o cliente"/>
 						    	
 						    	<span class="input-group-btn" >
-						    		<button class="btn  btn-default  js-tooltip" type="button" title="Pesquisa avançada">
+						    		<button class="btn  btn-default  js-tooltip" type="button" title="Pesquisa avançada"
+						    			data-toggle="modal" data-target="#pesquisaRapidaClientes" >
+						    			
 						    			<i class="glyphicon  glyphicon-search"></i>
+						    			
 						    		</button>
 						    	</span>
 						    
@@ -125,7 +128,7 @@
 							</div>
 							
 						</div>
-												
+											
 					</div>
 					
 					<div class="row" >
@@ -215,15 +218,20 @@
 						</div>
 						
 					</div>
-														
+												
 				</form>
-					
+				
 			</div>
+			
+			<th:block th:replace="cliente/PesquisaRapidaClientes :: pesquisaRapidaClientes" ></th:block>
 			
 		</section>
 		
 		<th:block layout:fragment="javascript-extra" >
 			
+			<script th:src="@{/js/vendors/handlebars.min.js}" ></script>
+			<script th:src="@{/js/cliente.pesquisa-rapida.js}" ></script>
+						
 			<script>
 				
 				$(function() {

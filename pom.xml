@@ -35,6 +35,9 @@
 		<!-- Apache Beans Utils -->
 		<commons-beanutils.version>1.9.2</commons-beanutils.version>
 		
+		<!-- Flyway -->
+		<flyway-maven-plugin.version>4.2.0</flyway-maven-plugin.version>
+		
 	</properties>
 
 	<dependencies>
@@ -75,7 +78,7 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<scope>runtime</scope>
+			<scope>provided</scope>
 		</dependency>
 		
 		<dependency>
@@ -104,7 +107,7 @@
     		<artifactId>spring-context-support</artifactId>
     		<scope>compile</scope>
 		</dependency>
-	
+		
 		<dependency>
 			<groupId>commons-beanutils</groupId>
 			<artifactId>commons-beanutils</artifactId>
@@ -120,12 +123,25 @@
 	</dependencies>
 
 	<build>
+	
 		<plugins>
+			
+			<plugin>
+				<groupId>org.flywaydb</groupId>
+				<artifactId>flyway-maven-plugin</artifactId>
+				<version>${flyway-maven-plugin.version}</version>
+				<configuration>
+					<driver>com.mysql.jdbc.Driver</driver>
+				</configuration>
+			</plugin>
+			
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+				
 		</plugins>
+		
 	</build>
 
 
