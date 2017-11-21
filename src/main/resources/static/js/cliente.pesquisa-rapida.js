@@ -34,7 +34,7 @@ Brewer.PesquisaRapidaCliente = (function(){
 	}
 	
 	function onPesquisaConcluida(resultado) {
-
+		
 		this.mensagemErro.addClass('hidden');
 		
 		var html = this.template(resultado);

@@ -17,6 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import com.focusti.cervejaria.dto.CervejaDTO;
 import com.focusti.cervejaria.model.Cerveja;
 import com.focusti.cervejaria.repository.filter.CervejaFilter;
 import com.focusti.cervejaria.repository.paginacao.PaginacaoUtil;
@@ -52,6 +53,19 @@ public class CervejasImpl implements CervejasQueries {
 		// lista de cervejas, pageable e total de páginas
 		// que vai ser calculado de acordo com o filtro
 		return new PageImpl<>(criteria.list(), pageable, total(filter));
+	}
+	
+	@Override
+	public List<CervejaDTO> porSkuOuNome(String skuOuNome) {
+		
+		String jpql = "select new com.focusti.cervejaria.dto.CervejaDTO(codigo, sku, nome, origem, valor, foto) "
+				+ "from Cerveja where lower(sku) like lower(:skuOuNome) or lower(nome) like lower(:skuOuNome)";
+		
+		List<CervejaDTO> cervejasFiltradas = entityManager.createQuery(jpql, CervejaDTO.class)
+				.setParameter("skuOuNome", skuOuNome.toLowerCase() + "%")
+				.getResultList();
+		
+		return cervejasFiltradas;
 	}
 	
 	private Long total(CervejaFilter filter) {
