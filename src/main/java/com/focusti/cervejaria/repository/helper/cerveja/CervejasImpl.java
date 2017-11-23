@@ -62,7 +62,7 @@ public class CervejasImpl implements CervejasQueries {
 				+ "from Cerveja where lower(sku) like lower(:skuOuNome) or lower(nome) like lower(:skuOuNome)";
 		
 		List<CervejaDTO> cervejasFiltradas = entityManager.createQuery(jpql, CervejaDTO.class)
-				.setParameter("skuOuNome", skuOuNome.toLowerCase() + "%")
+				.setParameter("skuOuNome", skuOuNome + "%")
 				.getResultList();
 		
 		return cervejasFiltradas;
