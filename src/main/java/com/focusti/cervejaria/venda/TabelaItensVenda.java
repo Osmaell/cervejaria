@@ -1,12 +1,12 @@
 package com.focusti.cervejaria.venda;
-
+	
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.focusti.cervejaria.model.Cerveja;
 import com.focusti.cervejaria.model.ItemVenda;
-
+	
 public class TabelaItensVenda {
 	
 	private List<ItemVenda> itens = new ArrayList<>();
