@@ -1,12 +1,17 @@
-package com.focusti.cervejaria.venda;
+package com.focusti.cervejaria.session;
 	
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+import org.springframework.web.context.annotation.SessionScope;
+
 import com.focusti.cervejaria.model.Cerveja;
 import com.focusti.cervejaria.model.ItemVenda;
-	
+
+@SessionScope
+@Component
 public class TabelaItensVenda {
 	
 	private List<ItemVenda> itens = new ArrayList<>();
@@ -29,6 +34,10 @@ public class TabelaItensVenda {
 		
 		this.itens.add(itemVenda);
 		
+	}
+	
+	public int total() {
+		return itens.size();
 	}
 	
 }

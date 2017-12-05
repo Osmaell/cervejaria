@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.focusti.cervejaria.model.Cerveja;
+import com.focusti.cervejaria.session.TabelaItensVenda;
 	
 public class TabelaItensVendaTest {
 	
