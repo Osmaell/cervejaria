@@ -33,15 +33,15 @@ public class VendasController {
 	}
 	
 	@PostMapping("/item")
-	public @ResponseBody String adicionarItem(Long codigoCerveja) {
+	public @ResponseBody ModelAndView adicionarItem(Long codigoCerveja) {
 		
 		Cerveja cerveja = cervejas.findOne(codigoCerveja);
-		
 		tabelaItensVenda.adicionarItem(cerveja, 1);
 		
-		System.out.println(">>> total de itens:" + tabelaItensVenda.total());
+		ModelAndView mv = new ModelAndView("venda/TabelaItensVenda");
+		mv.addObject("itens", tabelaItensVenda.getItens());
 		
-		return "Item adicionado!";
+		return mv;
 	}
 	
 }

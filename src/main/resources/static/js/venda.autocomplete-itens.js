@@ -4,8 +4,10 @@ Brewer.Autocomplete = (function(){
 	
 	function Autocomplete() {
 		this.skuOuNomeInput = $('.js-sku-nome-cerveja-input');
+		
 		var htmlTemplateAutocomplete = $('#template-autocomplete-cerveja').html();
 		this.template = Handlebars.compile(htmlTemplateAutocomplete);
+		
 		this.emitter = $({});
 		this.on = this.emitter.on.bind(this.emitter);
 	}
