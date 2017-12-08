@@ -2,6 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	xmlns:th="http://www.thymeleaf.org"
+	xmlns:data="http://www.thymeleaf.org/extras/data"
 	xmlns:brewer="http://brewer.algaworks.com"
 	layout:decorator="'layout/LayoutPadrao'" >
 	
@@ -154,7 +155,7 @@
 								
 								<div class="form-group  col-lg-12" >
 									
-									<input type="text" class="form-control js-sku-nome-cerveja-input" id="cerveja"
+									<input type="text" class="form-control js-sku-nome-cerveja-input" id="cerveja" data:url="@{/cervejas}"
 											placeholder="Pesquise e adicione a cerveja pelo SKU ou nome" autofocus="autofocus" />
 									
 								</div>

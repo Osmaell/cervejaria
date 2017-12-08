@@ -43,6 +43,9 @@ public class TabelaItensVendaTest {
 		Cerveja c1 = new Cerveja();
 		Cerveja c2 = new Cerveja();
 
+		c1.setCodigo(1L);
+		c2.setCodigo(2L);
+		
 		BigDecimal v1 = new BigDecimal("8.90");
 		BigDecimal v2 = new BigDecimal("4.99");
 
@@ -53,6 +56,21 @@ public class TabelaItensVendaTest {
 		this.tabelaItensVenda.adicionarItem(c2, 2);
 		
 		assertEquals(new BigDecimal("18.88"), this.tabelaItensVenda.getValorTotal());
+		
+	}
+	
+	@Test
+	public void deveManterTamanhoDaListaParaMesmasCervejas() throws Exception {
+		
+		Cerveja c1 = new Cerveja();
+		c1.setCodigo(1L);
+		c1.setValor(new BigDecimal("4.50"));
+		
+		this.tabelaItensVenda.adicionarItem(c1, 1);
+		this.tabelaItensVenda.adicionarItem(c1, 1);
+		
+		assertEquals(1, this.tabelaItensVenda.total());
+		assertEquals(new BigDecimal("9.00"), this.tabelaItensVenda.getValorTotal());
 		
 	}
 	
