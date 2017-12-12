@@ -26,6 +26,7 @@ Brewer.TabeaItens = (function(){
 	function onItemAtualizadoNoServidor(html) {
 		this.tabelaCervejasContainer.html(html);
 		$('.js-tabela-cerveja-quantidade-item').on('change', onQuantidadeItemAlterado.bind(this));
+		$('.js-tabela-item').on('dblclick', onDoubleClick);
 	}
 	
 	function onQuantidadeItemAlterado(evento) {
@@ -43,6 +44,15 @@ Brewer.TabeaItens = (function(){
 		});
 		
 		resposta.done(onItemAtualizadoNoServidor.bind(this));
+		
+	}
+	
+	function onDoubleClick(evento) {
+		
+		// var item = $(evento.currentTarget);
+		// é equivalente a $(this);
+		
+		$(this).toggleClass('solicitando-exclusao');
 		
 	}
 	
