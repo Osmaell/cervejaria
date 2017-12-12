@@ -74,4 +74,18 @@ public class TabelaItensVendaTest {
 		
 	}
 	
+	@Test
+	public void deveAlterarQuantidadeDoItem() throws Exception {
+		
+		Cerveja c1 = new Cerveja();
+		c1.setCodigo(1L);
+		c1.setValor(new BigDecimal("4.50"));
+		
+		this.tabelaItensVenda.adicionarItem(c1, 1);
+		this.tabelaItensVenda.alterarQuantidadeItens(c1, 3);
+		
+		assertEquals(new BigDecimal("13.50"), this.tabelaItensVenda.getValorTotal());
+		
+	}
+	
 }
