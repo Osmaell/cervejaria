@@ -1,12 +1,14 @@
-Brewer.TabeaItens = (function(){
+Brewer.TabelaItens = (function(){
 	
-	function TabeaItens(autocomplete) {
+	function TabelaItens(autocomplete) {
 		this.autocomplete = autocomplete;
 		this.tabelaCervejasContainer = $('.js-tabela-cervejas-container');
 		this.uuid = $('#uuid').val();
+		this.emitter = $({});
+		this.on = this.emitter.on.bind(this.emitter);
 	}
 	
-	TabeaItens.prototype.iniciar = function() {
+	TabelaItens.prototype.iniciar = function() {
 		this.autocomplete.on('item-selecionado', onItemSelecionado.bind(this));
 	}
 	
@@ -29,16 +31,28 @@ Brewer.TabeaItens = (function(){
 		
 		this.tabelaCervejasContainer.html(html);
 		
-		$('.js-tabela-cerveja-quantidade-item').on('change', onQuantidadeItemAlterado.bind(this));
-		$('.js-tabela-item').on('dblclick', onDoubleClick);
+		var quantidadeItemInput = $('.js-tabela-cerveja-quantidade-item');
+		quantidadeItemInput.maskMoney({precision: 0, thousands: ''});
+		quantidadeItemInput.on('change', onQuantidadeItemAlterado.bind(this));
+
+		var tabelaItem = $('.js-tabela-item');
+		
+		tabelaItem.on('dblclick', onDoubleClick);
 		$('.js-exclusao-item-btn').on('click', onExclusaoItemClick.bind(this));
 		
+		this.emitter.trigger('tabela-itens-atualizada', tabelaItem.data('valor-total'));
 	}
 	
 	function onQuantidadeItemAlterado(evento) {
 		
 		var input = $(evento.target);
 		var quantidade = input.val();
+		
+		if (quantidade <= 0) {
+			input.val(1);
+			quantidade = 1;
+		}
+		
 		var codigoCerveja = input.data('codigo');
 		
 		var resposta = $.ajax({
@@ -71,15 +85,5 @@ Brewer.TabeaItens = (function(){
 		
 	}
 	
-	return TabeaItens;
+	return TabelaItens;
 }());
-
-$(function(){
-	
-	var autocomplete = new Brewer.Autocomplete();
-	autocomplete.iniciar();
-	
-	var tabelaItens = new Brewer.TabeaItens(autocomplete);
-	tabelaItens.iniciar();
-	
-});

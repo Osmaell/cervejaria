@@ -75,7 +75,7 @@ Brewer.Security = (function(){
 	Security.prototype.enable = function() {
 		
 		// toda requisição ajax que for efetuada
-		// pelo jquery neste documento, será ser
+		// pelo jquery neste documento, será
 		// adicionado o header
 		$(document).ajaxSend(function(event, jqxhr, settings) {
 			jqxhr.setRequestHeader(this.header, this.token);
@@ -86,9 +86,15 @@ Brewer.Security = (function(){
 	return Security;
 })();
 
+numeral.locale('pt-br');
+
 Brewer.formatarMoeda = function(valor){
-	numeral.locale('pt-br');
 	return numeral(valor).format('0,0.00');
+}
+
+Brewer.recuperarValor = function(valorFormatado) {
+//	return numeral().unformat(valorFormatado);
+	return numeral(valorFormatado).value();
 }
 
 $(function(){

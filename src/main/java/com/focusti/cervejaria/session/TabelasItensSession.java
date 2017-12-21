@@ -1,5 +1,6 @@
 package com.focusti.cervejaria.session;
 
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -37,6 +38,10 @@ public class TabelasItensSession {
 	
 	public List<ItemVenda> getItens(String uuid) {
 		return buscarTabelaPorId(uuid).getItens();
+	}
+	
+	public BigDecimal getValorTotal(String uuid) {
+		return buscarTabelaPorId(uuid).getValorTotal();
 	}
 	
 	private TabelaItensVenda buscarTabelaPorId(String uuid) {
