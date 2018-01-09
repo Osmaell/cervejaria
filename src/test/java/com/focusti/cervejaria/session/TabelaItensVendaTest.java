@@ -87,7 +87,7 @@ public class TabelaItensVendaTest {
 		assertEquals(new BigDecimal("13.50"), this.tabelaItensVenda.getValorTotal());
 		
 	}
-
+	
 	@Test
 	public void deveExcluirItem() throws Exception {
 		

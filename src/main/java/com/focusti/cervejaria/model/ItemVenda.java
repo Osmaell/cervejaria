@@ -1,17 +1,45 @@
 package com.focusti.cervejaria.model;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class ItemVenda {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
+@Entity
+@Table(name = "item_venda")
+public class ItemVenda implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
-
+	
+	@NotNull(message = "Quantidade é obrigatória")
 	private Integer quantidade;
-
+	
+	@NotNull(message = "Valor unitário é obrigatório")
+	@Column(name = "valor_unitario")
 	private BigDecimal valorUnitario;
 
+	@NotNull(message = "Cerveja é obrigatória")
+	@ManyToOne
+	@JoinColumn(name = "codigo_cerveja")
 	private Cerveja cerveja;
-
+	
+	@NotNull(message = "Venda é obrigatória")
+	@ManyToOne
+	@JoinColumn(name = "codigo_venda")
+	private Venda venda;
+	
 	public Long getCodigo() {
 		return codigo;
 	}
@@ -46,6 +74,14 @@ public class ItemVenda {
 
 	public BigDecimal getValorTotal() {
 		return this.valorUnitario.multiply(new BigDecimal(this.quantidade));
+	}
+	
+	public Venda getVenda() {
+		return venda;
+	}
+	
+	public void setVenda(Venda venda) {
+		this.venda = venda;
 	}
 	
 	@Override

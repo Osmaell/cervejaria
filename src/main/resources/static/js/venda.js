@@ -39,6 +39,11 @@ Brewer.Venda = (function(){
 	function onValoresAlterados() {
 		var valorTotal = parseInt(this.valorTotalItens) + this.valorFrete - this.valorDesconto;
 		this.valorTotalBox.html(Brewer.formatarMoeda(valorTotal));
+		
+		if (valorTotal < 0) {
+			$('.js-box').css('color', 'red');
+		}
+		
 	}
 	
 	return Venda;

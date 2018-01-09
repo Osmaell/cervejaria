@@ -19,11 +19,9 @@ class TabelaItensVenda {
 	}
 	
 	public BigDecimal getValorTotal() {
-
 		return itens.stream().map(ItemVenda::getValorTotal).reduce(BigDecimal::add).orElse(BigDecimal.ZERO);
-
 	}
-
+	
 	public void adicionarItem(Cerveja cerveja, Integer quantidade) {
 
 		Optional<ItemVenda> itemVendaOptional = buscarItemPorCerveja(cerveja);
@@ -64,20 +62,18 @@ class TabelaItensVenda {
 	public int total() {
 		return itens.size();
 	}
-
+	
 	private Optional<ItemVenda> buscarItemPorCerveja(Cerveja cerveja) {
-
+		
 		Optional<ItemVenda> itemVendaOptional = itens.stream().filter(i -> i.getCerveja().equals(cerveja)).findAny();
-
+		
 		return itemVendaOptional;
-
 	}
 	
 	public String getUuid() {
 		return uuid;
 	}
 	
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -85,7 +81,6 @@ class TabelaItensVenda {
 		result = prime * result + ((uuid == null) ? 0 : uuid.hashCode());
 		return result;
 	}
-
 	
 	@Override
 	public boolean equals(Object obj) {
