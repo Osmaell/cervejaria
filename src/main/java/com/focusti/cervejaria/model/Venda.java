@@ -2,8 +2,12 @@ package com.focusti.cervejaria.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -13,7 +17,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import com.focusti.cervejaria.model.constants.StatusVenda;
@@ -44,12 +50,12 @@ public class Venda implements Serializable {
 
 	@NotNull(message = "Status é obrigatório")
 	@Enumerated(EnumType.STRING)
-	private StatusVenda status;
-
+	private StatusVenda status = StatusVenda.ORCAMENTO;
+	
 	private String observacao;
 
-	@Column(name = "data_entrega")
-	private LocalDateTime dataEntrega;
+	@Column(name = "data_hora_entrega")
+	private LocalDateTime dataHoraEntrega;
 
 	@NotNull(message = "Cliente é obrigatório")
 	@ManyToOne
@@ -60,7 +66,19 @@ public class Venda implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "codigo_usuario")
 	private Usuario usuario;
-
+	
+	@OneToMany(mappedBy = "venda", cascade = CascadeType.ALL)
+	private List<ItemVenda> itens;
+	
+	@Transient
+	private String uuid;
+	
+	@Transient
+	private LocalDate dataEntrega;
+	
+	@Transient
+	private LocalTime horarioEntrega;
+	
 	public Long getCodigo() {
 		return codigo;
 	}
@@ -117,14 +135,14 @@ public class Venda implements Serializable {
 		this.observacao = observacao;
 	}
 
-	public LocalDateTime getDataEntrega() {
-		return dataEntrega;
+	public LocalDateTime getDataHoraEntrega() {
+		return dataHoraEntrega;
 	}
 
-	public void setDataEntrega(LocalDateTime dataEntrega) {
-		this.dataEntrega = dataEntrega;
+	public void setDataHoraEntrega(LocalDateTime dataHoraEntrega) {
+		this.dataHoraEntrega = dataHoraEntrega;
 	}
-
+	
 	public Cliente getCliente() {
 		return cliente;
 	}
@@ -140,7 +158,48 @@ public class Venda implements Serializable {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
+	
+	public List<ItemVenda> getItens() {
+		return itens;
+	}
 
+	public void setItens(List<ItemVenda> itens) {
+		this.itens = itens;
+	}
+	
+	public String getUuid() {
+		return uuid;
+	}
+
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
+	
+	public LocalDate getDataEntrega() {
+		return dataEntrega;
+	}
+
+	public void setDataEntrega(LocalDate dataEntrega) {
+		this.dataEntrega = dataEntrega;
+	}
+
+	public LocalTime getHorarioEntrega() {
+		return horarioEntrega;
+	}
+	
+	public void setHorarioEntrega(LocalTime horarioEntrega) {
+		this.horarioEntrega = horarioEntrega;
+	}
+	
+	public boolean isNova() {
+		return this.codigo == null;
+	}
+	
+	public void adicionarItens(List<ItemVenda> itens) {
+		this.itens = itens;
+		itens.forEach( itemVenda -> itemVenda.setVenda(this));
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -165,5 +224,6 @@ public class Venda implements Serializable {
 			return false;
 		return true;
 	}
-	
+
+
 }

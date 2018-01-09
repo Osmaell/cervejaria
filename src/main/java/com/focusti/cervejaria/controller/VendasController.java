@@ -3,6 +3,7 @@ package com.focusti.cervejaria.controller;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,9 +13,13 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.focusti.cervejaria.model.Cerveja;
+import com.focusti.cervejaria.model.Venda;
 import com.focusti.cervejaria.repository.Cervejas;
+import com.focusti.cervejaria.security.UsuarioSistema;
+import com.focusti.cervejaria.service.VendaService;
 import com.focusti.cervejaria.session.TabelasItensSession;
 	
 @Controller
@@ -29,13 +34,28 @@ public class VendasController {
 	@Autowired
 	private TabelasItensSession tabelaItens;
 	
+	@Autowired
+	private VendaService vendaService;
+	
 	@GetMapping("/nova")
-	public ModelAndView nova() {
+	public ModelAndView nova(Venda venda) {
 		
 		ModelAndView mv = new ModelAndView(CADASTRO_VENDA_VIEW);
-		mv.addObject("uuid", UUID.randomUUID().toString());
+		venda.setUuid(UUID.randomUUID().toString());
 		
 		return mv;
+	}
+	
+	@PostMapping
+	public ModelAndView salvar( Venda venda, RedirectAttributes attributes, @AuthenticationPrincipal UsuarioSistema usuarioSistema) {
+		
+		venda.setUsuario(usuarioSistema.getUsuario());
+		venda.adicionarItens(tabelaItens.getItens(venda.getUuid()));
+		
+		vendaService.salvar(venda);
+		attributes.addFlashAttribute("mensagem", "Venda salva com sucesso");
+		
+		return new ModelAndView("redirect:/vendas/nova");
 	}
 	
 	@PostMapping("/item")
