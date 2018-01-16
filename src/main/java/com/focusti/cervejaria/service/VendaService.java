@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.focusti.cervejaria.model.Venda;
+import com.focusti.cervejaria.model.constants.StatusVenda;
 import com.focusti.cervejaria.repository.Vendas;
 	
 @Service
@@ -28,6 +29,11 @@ public class VendaService {
 		}
 		
 		this.vendas.save(venda);
+	}
+	
+	public void emitir(Venda venda) {
+		venda.setStatus(StatusVenda.EMITIDA);
+		salvar(venda);
 	}
 	
 }
