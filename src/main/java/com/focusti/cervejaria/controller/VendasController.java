@@ -2,7 +2,12 @@ package com.focusti.cervejaria.controller;
 	
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
@@ -19,10 +24,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.focusti.cervejaria.controller.page.PageWrapper;
 import com.focusti.cervejaria.controller.validator.VendaValidator;
 import com.focusti.cervejaria.model.Cerveja;
 import com.focusti.cervejaria.model.Venda;
+import com.focusti.cervejaria.model.constants.StatusVenda;
 import com.focusti.cervejaria.repository.Cervejas;
+import com.focusti.cervejaria.repository.Vendas;
+import com.focusti.cervejaria.repository.filter.VendaFilter;
 import com.focusti.cervejaria.security.UsuarioSistema;
 import com.focusti.cervejaria.service.VendaService;
 import com.focusti.cervejaria.session.TabelasItensSession;
@@ -35,6 +44,9 @@ public class VendasController {
 	
 	@Autowired
 	private Cervejas cervejas;
+	
+	@Autowired
+	private Vendas vendas;
 	
 	@Autowired
 	private TabelasItensSession tabelaItens;
@@ -113,6 +125,20 @@ public class VendasController {
 		attributes.addFlashAttribute("mensagem", "Venda salva e e-mail enviado");
 		
 		return new ModelAndView("redirect:/vendas/nova");
+	}
+	
+	@GetMapping
+	public ModelAndView pesquisar(VendaFilter vendaFilter, @PageableDefault(size = 3) Pageable pageable, HttpServletRequest httpServletRequest) {
+		
+		Page<Venda> page = vendas.filtrar(vendaFilter, pageable);
+		PageWrapper<Venda> pageWrapper = new PageWrapper<>(page, httpServletRequest);
+		
+		ModelAndView mv = new ModelAndView("venda/PesquisaVendas");
+		
+		mv.addObject("status", StatusVenda.values());
+		mv.addObject("pagina", pageWrapper);
+		
+		return mv;
 	}
 	
 	@PostMapping("/item")
