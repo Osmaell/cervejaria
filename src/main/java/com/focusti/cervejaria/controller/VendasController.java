@@ -79,7 +79,7 @@ public class VendasController {
 		return mv;
 	}
 	
-	@PostMapping(params = "salvar")
+	@PostMapping(name = "/nova", params = "salvar")
 	public ModelAndView salvar(Venda venda, BindingResult result, RedirectAttributes attributes, @AuthenticationPrincipal UsuarioSistema usuarioSistema) {
 		
 		validarVenda(venda, result);
@@ -94,8 +94,8 @@ public class VendasController {
 		
 		return new ModelAndView("redirect:/vendas/nova");
 	}
-
-	@PostMapping(params = "emitir")
+	
+	@PostMapping(name = "/nova", params = "emitir")
 	public ModelAndView emitir(Venda venda, BindingResult result, RedirectAttributes attributes, @AuthenticationPrincipal UsuarioSistema usuarioSistema) {
 		
 		validarVenda(venda, result);
@@ -111,7 +111,7 @@ public class VendasController {
 		return new ModelAndView("redirect:/vendas/nova");
 	}
 	
-	@PostMapping(params = "enviarEmail")
+	@PostMapping(name = "/nova", params = "enviarEmail")
 	public ModelAndView enviarEmail(Venda venda, BindingResult result, RedirectAttributes attributes, @AuthenticationPrincipal UsuarioSistema usuarioSistema) {
 		
 		validarVenda(venda, result);
