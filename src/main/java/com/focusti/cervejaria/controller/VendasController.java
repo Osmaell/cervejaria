@@ -26,6 +26,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.focusti.cervejaria.controller.page.PageWrapper;
 import com.focusti.cervejaria.controller.validator.VendaValidator;
+import com.focusti.cervejaria.mail.Mailer;
 import com.focusti.cervejaria.model.Cerveja;
 import com.focusti.cervejaria.model.Venda;
 import com.focusti.cervejaria.model.constants.StatusVenda;
@@ -57,6 +58,9 @@ public class VendasController {
 	@Autowired
 	private VendaValidator vendaValidator;
 	
+	@Autowired
+	private Mailer mailer;
+	
 	@InitBinder("venda")
 	public void inicializarValidador(WebDataBinder binder) {
 		binder.setValidator(vendaValidator);
@@ -79,7 +83,7 @@ public class VendasController {
 		return mv;
 	}
 	
-	@PostMapping(name = "/nova", params = "salvar")
+	@PostMapping(value = "/nova", params = "salvar")
 	public ModelAndView salvar(Venda venda, BindingResult result, RedirectAttributes attributes, @AuthenticationPrincipal UsuarioSistema usuarioSistema) {
 		
 		validarVenda(venda, result);
@@ -95,7 +99,7 @@ public class VendasController {
 		return new ModelAndView("redirect:/vendas/nova");
 	}
 	
-	@PostMapping(name = "/nova", params = "emitir")
+	@PostMapping(value = "/nova", params = "emitir")
 	public ModelAndView emitir(Venda venda, BindingResult result, RedirectAttributes attributes, @AuthenticationPrincipal UsuarioSistema usuarioSistema) {
 		
 		validarVenda(venda, result);
@@ -111,7 +115,7 @@ public class VendasController {
 		return new ModelAndView("redirect:/vendas/nova");
 	}
 	
-	@PostMapping(name = "/nova", params = "enviarEmail")
+	@PostMapping(value = "/nova", params = "enviarEmail")
 	public ModelAndView enviarEmail(Venda venda, BindingResult result, RedirectAttributes attributes, @AuthenticationPrincipal UsuarioSistema usuarioSistema) {
 		
 		validarVenda(venda, result);
@@ -122,6 +126,8 @@ public class VendasController {
 		venda.setUsuario(usuarioSistema.getUsuario());
 		
 		vendaService.salvar(venda);
+		mailer.enviar(venda);
+		
 		attributes.addFlashAttribute("mensagem", "Venda salva e e-mail enviado");
 		
 		return new ModelAndView("redirect:/vendas/nova");

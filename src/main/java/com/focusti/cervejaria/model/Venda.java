@@ -36,7 +36,6 @@ public class Venda implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
 	
-	@NotNull(message = "Data de criação é obrigatória")
 	@Column(name = "data_criacao")
 	private LocalDateTime dataCriacao;
 	
