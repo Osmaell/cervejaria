@@ -1,5 +1,7 @@
 package com.focusti.cervejaria.mail;
 	
+import java.util.Locale;
+
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
@@ -30,7 +32,7 @@ public class Mailer {
 	@Async
 	public void enviar(Venda venda) {
 		
-		Context context = new Context();
+		Context context = new Context(new Locale("pt", "BR"));
 		context.setVariable("venda", venda);
 		context.setVariable("logo", "logo");
 		context.setVariable("mockCerveja", "mockCerveja");
@@ -42,9 +44,9 @@ public class Mailer {
 			MimeMessage mimeMessage = mailSender.createMimeMessage();
 			MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
 			
-			helper.setFrom("osmaeltestefrom@gmail.com");
-			helper.setTo("osmaeltesteto@gmail.com");
-			helper.setSubject("Brewer - Venda realizada");
+			helper.setFrom("osmaelsousabraga@gmail.com");
+			helper.setTo("osmaelsousa.ti@gmail.com");
+			helper.setSubject(String.format("Brewer - Venda n° %d", venda.getCodigo()));
 			helper.setText(email, true);
 			
 			helper.addInline("logo", new ClassPathResource("static/images/logo-gray.png"));
