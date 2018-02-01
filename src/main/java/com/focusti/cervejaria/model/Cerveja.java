@@ -195,6 +195,10 @@ public class Cerveja implements Serializable {
 		this.contentType = contentType;
 	}
 	
+	public boolean isNova() {
+		return codigo == null;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

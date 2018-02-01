@@ -16,13 +16,14 @@
 		<section layout:fragment="conteudo" >
 			
 			<div class="page-header" >
-				
+					
 				<div class="container-fluid" >
-				
+					
 					<div class="row" >
 						
 						<div class="col-sm-10" >
-							<h1>Cadastro de cerveja</h1>
+							<h1 th:if="${cerveja.nova}" >Cadastro de cerveja</h1>
+							<h1 th:unless="${cerveja.nova}" th:text="|Edição da ${cerveja.nome}|" >Edição de cerveja</h1>
 						</div>	
 						
 						<div class="col-sm-2" >
@@ -49,10 +50,12 @@
 				<form method="POST" th:action="@{/cervejas}" th:object="${cerveja}" class="form-vertical  js-form-loading" >
 					
 					<brewer:message />
-										
+					
+					<input type="hidden" th:field="*{codigo}" />
+					
 					<!-- Sku e nome -->
 					<div class="row" >
-						
+							
 						<div class="form-group col-sm-2 bw-required" brewer:classforerror="sku" >
 							<label for="sku" class="control-label" >SKU</label> 
 							<input type="text" id="sku" class="form-control js-sku" th:field="*{sku}" autofocus="autofocus" />
@@ -197,12 +200,12 @@
 				</form>
 				
 			</div>
-								
+			
 			<div th:replace="estilo/CadastroRapidoEstilo :: modal-cadastro-rapido" ></div>
 			<th:block th:replace="hbs/FotoCerveja" ></th:block>
 			
 		</section>
-				
+		
 		<th:block layout:fragment="javascript-extra" >
 			<script th:src="@{/js/estilo.js}" ></script>
 			<script th:src="@{/js/vendors/uikit.min.js}" ></script>
@@ -210,7 +213,7 @@
 			<script th:src="@{/js/vendors/handlebars.min.js}" ></script>
 			<script th:src="@{/js/cerveja.upload-foto.js}" ></script>
 		</th:block>
-		
-	</body>
 			
+	</body>
+	
 </html>

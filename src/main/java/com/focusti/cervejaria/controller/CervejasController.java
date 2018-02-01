@@ -106,4 +106,11 @@ public class CervejasController {
 		return ResponseEntity.ok().build();
 	}
 	
+	@GetMapping("/{codigo}")
+	public ModelAndView editar( @PathVariable("codigo") Cerveja cerveja ) {
+		ModelAndView mv = nova(cerveja);
+		mv.addObject(cerveja);
+		return mv;
+	}
+	
 }
