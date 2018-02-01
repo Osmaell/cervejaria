@@ -16,6 +16,7 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.validator.constraints.Email;
@@ -46,6 +47,7 @@ public class Usuario implements Serializable {
 	
 	private Boolean ativo;
 	
+	@Size(min = 1, message = "Selecione pelo menos um grupo")
 	@NotNull(message = "Selecione pelo menos um grupo")
 	@ManyToMany
 	@JoinTable(

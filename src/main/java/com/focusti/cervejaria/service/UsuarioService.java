@@ -22,9 +22,9 @@ public class UsuarioService {
 	
 	public void salvar(Usuario usuario) {
 		
-		Optional<Usuario> optional = usuarios.findByEmail(usuario.getEmail());
-	
-		if (optional.isPresent()) {
+		Optional<Usuario> usuarioExistente = usuarios.findByEmail(usuario.getEmail());
+		
+		if (usuarioExistente.isPresent() && usuario.isNovo()) {
 			throw new EmailUsuarioJaCadastradoException("E-mail já cadastrado");
 		}
 		
@@ -32,9 +32,16 @@ public class UsuarioService {
 			throw new SenhaObrigatoriaUsuarioException("Senha é obrigatória para novo usuário");
 		}
 		
-		if (usuario.isNovo()) {
+		if (usuario.isNovo() || !StringUtils.isEmpty(usuario.getSenha()) ) {
 			usuario.setSenha(this.passwordEncoder.encode(usuario.getSenha()));
-			usuario.setConfirmacaoSenha(usuario.getSenha());
+		} else if ( StringUtils.isEmpty(usuario.getSenha()) ) {
+			usuario.setSenha( usuarioExistente.get().getSenha() );
+		}
+		
+		usuario.setConfirmacaoSenha(usuario.getSenha());
+		
+		if (!usuario.isNovo() && usuario.getAtivo() == null) {
+			usuario.setAtivo(usuarioExistente.get().getAtivo());
 		}
 		
 		usuarios.save(usuario);

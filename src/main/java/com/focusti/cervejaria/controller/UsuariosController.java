@@ -1,5 +1,5 @@
 package com.focusti.cervejaria.controller;
-
+	
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,8 +27,9 @@ import com.focusti.cervejaria.repository.Usuarios;
 import com.focusti.cervejaria.repository.filter.UsuarioFilter;
 import com.focusti.cervejaria.service.StatusUsuario;
 import com.focusti.cervejaria.service.UsuarioService;
+import com.focusti.cervejaria.service.exception.SenhaObrigatoriaUsuarioException;
 import com.focusti.cervejaria.service.exception.UsuarioJaCadastradoException;
-
+	
 @Controller
 @RequestMapping("usuarios")
 public class UsuariosController {
@@ -59,13 +61,16 @@ public class UsuariosController {
 			usuarioService.salvar(usuario);
 			attributes.addFlashAttribute("mensagem", "Usuário salvo com sucesso");
 		} catch (UsuarioJaCadastradoException e) {
-			result.rejectValue("nome", e.getMessage(), e.getMessage());
+ 			result.rejectValue("nome", e.getMessage(), e.getMessage());
+			return novo(usuario);
+		} catch (SenhaObrigatoriaUsuarioException e) {
+			result.rejectValue("email", e.getMessage(), e.getMessage());
 			return novo(usuario);
 		}
 		
 		return new ModelAndView("redirect:/usuarios/novo");
 	}
-
+	
 	@GetMapping
 	public ModelAndView pesquisar(UsuarioFilter usuarioFilter,
 			@PageableDefault(size = 3) Pageable pageable, HttpServletRequest httpServletRequest) {
@@ -78,6 +83,13 @@ public class UsuariosController {
 		
 		mv.addObject("pagina", paginaWrapper);
 		
+		return mv;
+	}
+	
+	@GetMapping("/{codigo}")
+	public ModelAndView editar( @PathVariable("codigo") Usuario usuario ) {
+		ModelAndView mv = novo(usuario);
+		mv.addObject(usuario);
 		return mv;
 	}
 	
